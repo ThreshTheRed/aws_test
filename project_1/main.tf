@@ -13,6 +13,18 @@ terraform {
   dynamodb_table = "terraform-lock"
   encrypt = true
  }
+ aws_dynamodb_table "terraform-lock" {
+  name = "terraform_state"
+  billing_mode = "PROVISIONED"
+  read_capacity = 5
+  write_capacity = 5
+  hash_key = "LockId"
+  
+  attribute {
+   name = "LockId"
+   type = "S"
+   }
+ }  
 }
 
 provider "aws" {
